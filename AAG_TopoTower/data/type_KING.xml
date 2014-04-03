@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="yes" ?>
+
+<aml>
+<type>
+	<nodes>
+		<node id="00" tag="foyer" size="05" height="4.99" connexion="core"/>
+		<node id="01" tag="foyer" size="03" height="4.99" connexion=""/>
+		<node id="02" tag="great" size="11" height="4.99" connexion=""/>
+		<node id="03" tag="great" size="07" height="5.01" connexion="attractor"/>
+		<node id="04" tag="great" size="05" height="4.99" connexion=""/>
+		<node id="05" tag="bedroom" size="06" height="4.99" connexion=""/>
+		<node id="06" tag="bedroom" size="06" height="4.99" connexion=""/>
+		<node id="07" tag="water" size="04" height="4.99" connexion="core"/>
+		<node id="08" tag="water" size="06" height="4.99" connexion="core"/>
+	</nodes>
+
+	<links>
+		<links from="00" to="01" strength="01" damping="0.01"/>
+		<links from="00" to="02" strength="01" damping="0.01"/>
+		<links from="01" to="05" strength="01" damping="0.01"/>
+		<links from="01" to="06" strength="01" damping="0.01"/>
+		<links from="01" to="07" strength="01" damping="0.01"/>
+		<links from="02" to="03" strength="01" damping="0.01"/>
+		<links from="02" to="04" strength="01" damping="0.01"/>
+		<links from="02" to="08" strength="01" damping="0.01"/>
+	</links>
+</type>
+</aml>
