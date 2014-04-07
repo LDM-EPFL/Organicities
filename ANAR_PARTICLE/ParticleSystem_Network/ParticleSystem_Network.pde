@@ -4,7 +4,7 @@ import traer.physics.*;
 import traer.anar.*;
 
 Sim sim;
-Obj architectureDuFutur;
+Obj ParticleNet;
 
 void setup(){
   size(1000,500,OPENGL);
@@ -18,7 +18,7 @@ void setup(){
 void createSimulation(){
   //Initialization
   sim = new Sim(0,0.1f);
-  architectureDuFutur = new Obj();
+  ParticleNet = new Obj();
   Pts pts = new Pts();
 
   //Create Random Points
@@ -32,7 +32,7 @@ void createSimulation(){
     PowerPt a = (PowerPt)pts.pt(Anar.rndi(pts.numOfPts()));
     PowerPt b = (PowerPt)pts.pt(Anar.rndi(pts.numOfPts()));
     if(a!=b)
-      architectureDuFutur.add(new PowerSpring(a,b));
+      ParticleNet.add(new PowerSpring(a,b));
   }
 
   //Apply a Repulsor force on each pair of nodes
@@ -51,8 +51,8 @@ void draw(){
   background(150);
   sim.updateSim(); // Update the simulation
   sim.param.draw(); // Draw the sliders
-  architectureDuFutur.draw(); // Draw our objects
-  Anar.camTarget(architectureDuFutur); // Center the object to the scene
+  ParticleNet.draw(); // Draw our objects
+  Anar.camTarget(ParticleNet); // Center the object to the scene
 }
 
 void keyPressed(){
