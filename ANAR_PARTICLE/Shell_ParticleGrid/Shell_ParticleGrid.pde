@@ -2,11 +2,14 @@ import anar.*;
 import processing.opengl.*;
 import traer.physics.*;
 import traer.anar.*;
+import processing.dxf.*;
+
 
 Sim sim = new Sim(1,0.1f);
 Obj mesh;
+boolean record;
 
-void setup(){
+void setup() {
   size(1000,500,OPENGL);
   Anar.init(this);
   Anar.drawAxis(true);
@@ -15,7 +18,7 @@ void setup(){
   sim.useGlobalAttractorValue = true;
 }
 
-void createSimulation(){
+void createSimulation() {
   PowerPt[][] particles = new PowerPt[10][10];
 
   Obj grid = new Obj();
@@ -39,7 +42,7 @@ void createSimulation(){
   }
 
   // Create Vertical Lines
-  for (int j = 0; j<particles[0].length; j++){
+  for (int j = 0; j<particles[0].length; j++) {
     Pts p = new Pts();
     for (int i = 0; i<particles.length; i++)
       p.add(particles[i][j]);
@@ -50,21 +53,25 @@ void createSimulation(){
   PowerAttractor.globalForce(grid,-200,0.1f);
 }
 
-void draw(){
+void draw() {
+  if (record) {
+    beginRaw(DXF,"output.dxf");
+  }
   background(155);
   sim.updateSim();
-  sim.param.draw();
   mesh.draw();
   Anar.camTarget(mesh);
+  if (record) {
+    endRaw();
+    record = false;
+  }
 }
-
-void keyPressed(){
+void keyPressed() {
   if(key=='s')
     sim.simulate = sim.simulate ? false:true;
-  if(key=='p')
-    save("screenshot03.jpg");
+  if(key=='r')
+    record = true;
   if(key==' ')
-    createSimulation();    
+    createSimulation();
 }
-
 
