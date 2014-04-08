@@ -1,0 +1,9 @@
+08. PARTICLE NETWORK
+
+particle systems, networks, processing, anar+, physics simulator
+
+Particle Network sets up a system of random attractions between particles that repel one another. The result is a dynamic mesh that self-adjusts unitl it reaches a position of equilibrium. 
+
+
+The Particle Network Script:	
+After setting up the environment this script generates a point cloud of particles at random locations. Random spring connections between the particles pull the system together, while a repulsion force between each pair prevents the system from collapsing in on itself.
