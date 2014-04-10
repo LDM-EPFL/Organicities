@@ -1,8 +1,12 @@
+import traer.physics.*;
+import traer.anar.*;
+
 //LIBRARIES
 import processing.opengl.*;
 import anar.*;
-import physics.*;
+//import physics.*;
 import processing.dxf.*;
+
 
 //GLOBAL DECLARATIONS
 PVector z = new PVector(0, 0, 1); //global unit z vector

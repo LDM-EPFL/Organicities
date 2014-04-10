@@ -2,11 +2,13 @@ import anar.*;
 import processing.opengl.*;
 import traer.physics.*;
 import traer.anar.*;
+import processing.dxf.*;
 
 Sim sim;
 Obj constrainedDome;
+boolean record;
 
-void setup(){
+void setup() {
   size(1000,500,OPENGL);
   Anar.init(this);
   Anar.drawAxis(true);
@@ -14,7 +16,7 @@ void setup(){
   createSimulation();
 }
 
-public void createSimulation(){
+public void createSimulation() {
   constrainedDome = new Obj();
   sim = new Sim(1,0.1f);
 
@@ -49,23 +51,29 @@ public void createSimulation(){
     }
   }    
   constrainedDome.add(constrains);
-
 }
 
-void draw(){
+void draw() {
+  if (record) {
+    beginRaw(DXF,"output.dxf");
+  }
   background(155);
   sim.updateSim(); // Update the simulation
-  sim.param.draw(); // Draw the sliders
+  // sim.param.draw(); // Draw the sliders
   constrainedDome.draw(); // Draw our objects
   Anar.camTarget(constrainedDome); // Center the object to the scene
+  if (record) {
+    endRaw();
+    record = false;
+  }
 }
 
-void keyPressed(){
+void keyPressed() {
   if(key=='s')
     sim.simulate = sim.simulate ? false:true;
-  if(key=='p')
-    save("screenshot40.jpg");
+  if(key=='r')
+    record = true;
   if(key==' ')
-    createSimulation();     
+    createSimulation();
 }
 

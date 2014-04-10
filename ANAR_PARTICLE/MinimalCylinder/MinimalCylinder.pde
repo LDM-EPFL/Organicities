@@ -2,11 +2,13 @@ import anar.*;
 import processing.opengl.*;
 import traer.physics.*;
 import traer.anar.*;
+import processing.dxf.*;
 
 Sim sim;
 Obj minimalSurface;
+boolean record;
 
-void setup(){
+void setup() {
   size(1000,500,OPENGL);
   Anar.init(this);
   Anar.drawAxis(true);
@@ -14,7 +16,7 @@ void setup(){
   createSimulation();
 }
 
-void createSimulation(){
+void createSimulation() {
   minimalSurface = new Obj();
   sim = new Sim(0,0.1f);
 
@@ -61,24 +63,29 @@ void createSimulation(){
   //Create Springs between lines in the other direction
   for (int i = 0; i<nodes.length; i++)
     for (int j = 1; j<nodes[i].length; j++)
-      minimalSurface.add(new PowerSpring(nodes[i][j-1],nodes[i][j],0));    
+      minimalSurface.add(new PowerSpring(nodes[i][j-1],nodes[i][j],0));
 }
 
-void draw(){
+void draw() {
+  if(record) {
+    beginRaw(DXF,"output.dxf");
+  }
   background(155);
   sim.updateSim(); // Update the simulation
   sim.param.draw(); // Draw the sliders
   minimalSurface.draw(); // Draw our objects
   Anar.camTarget(minimalSurface); // Center the object to the scene
+  if(record) {
+    endRaw();
+    record = false;
+  }
 }
 
-public void keyPressed(){
+public void keyPressed() {
   if(key=='s')
     sim.simulate = sim.simulate ? false:true;
-  if(key=='p')
-    save("screenshot30.jpg");
+  if(key=='r')
+    record = true;
   if(key==' ')
-    createSimulation();   
+    createSimulation();
 }
-
-
